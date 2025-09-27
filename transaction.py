@@ -16,4 +16,6 @@ class Transaction:
 
     
     def __repr__(self):
-        return f"Transaction({self.date}, {self.tType}, {self.description}, {self.amount}, {self.balance})"
+        # string format time: 2025-08-18 00:00:00 --> 2025-8-18
+        formated_date = self.date.strftime("%Y-%m-%d")
+        return f"Transaction({formated_date}, {self.tType}, {self.description}, {self.amount}, {self.balance})"
