@@ -46,16 +46,11 @@ def normalize_transaction(txn, prev_balance=None):
 def add_category(txn, rules):
     desc = txn[2].lower()
     txnType = txn[1].name
-    keywords = rules["KEYWORDS"]
-    for keyword in keywords: 
+    for keyword, rule in rules[txnType].items():
         if keyword in desc:
-            category = rules[txnType][keyword]["category"]
-            subcategory = rules[txnType][keyword]["subcategory"]
-            txn.append(category)
-            txn.append(subcategory)
+            txn.append(rule["category"])
+            txn.append(rule["subcategory"])
             return txn
     txn.append(Category.OTHER)
     txn.append("unknown")
     return txn
-
-
