@@ -6,6 +6,7 @@ class Type(Enum):
     CREDIT = "deposit"
 
 class Category(Enum):
+    CASH_WITHDRAWAL = "Cash Withdrawal"
     PAYMENT = "Payment" # credit card, bill, subscription, zelle
     TRANSFER = "Transfers" # checking to saving, viceversa, another bank account
     INVESTMENT = "Investments" # fidelity, robinhood

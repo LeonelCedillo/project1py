@@ -1,6 +1,9 @@
-from parse_csv import filter_line, normalize_transaction
+from parse_csv import filter_line, normalize_transaction, add_category
+from transaction import Transaction
 
 
+# raw row:
+# "Date","ReferenceNo.","Type","Description","Debit","Credit","CheckNumber","Balance"
 transaction_objs = []
 prev_balance = None
 with open("export.csv") as file:
@@ -10,21 +13,13 @@ with open("export.csv") as file:
         if float(txn[3]) == 0.0 and float(txn[4]) == 0.0:
             print(f"Skipping row (repeated): {txn}")
             continue
-        txn_obj = normalize_transaction(txn, prev_balance)  # To: [Date obj, Type type, "Description", Amount float, Balance float]
+        txn = normalize_transaction(txn, prev_balance)  # To: [Date obj, Type type, "Description", Amount float, Balance float]
         prev_balance = float(txn[4])
-        transaction_objs.append(txn_obj)  # Transaction(date, type, description, amount, balance)
+        txn = add_category(txn)
+        date, tType, description, amount, balance, category, subcategory = txn
+        txn_obj = Transaction(date, tType, description, amount, balance, category, subcategory)
+        transaction_objs.append(txn_obj)  
 
 
 for t in transaction_objs:
     print(t)
-
-
-
-
-
-# Categories: 
-
-# Credit crd payment
-# transfer to robinhood
-# withdrawal from atm
-# deposit: from CSU Fresno, from ZEllE, from atm, etc
