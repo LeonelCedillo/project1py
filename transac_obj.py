@@ -16,7 +16,7 @@ def get_transaction_objects():
         for line in file:
             txn = filter_line(line)  # To: ["Date","Type","Description","Amount","Balance"]
             if float(txn[3]) == 0.0 and float(txn[4]) == 0.0:
-                print(f"Skipping row (repeated): {txn}")
+                # print(f"Skipping row (repeated): {txn}")
                 continue
             txn = normalize_transaction(txn, prev_balance)  # To: [Date obj, Type type, "Description", Amount float, Balance float]
             prev_balance = float(txn[4])
