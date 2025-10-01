@@ -38,19 +38,30 @@ def summarize_by_month(transactions):
     months = {}
     for t in transactions:
         month = t.date.strftime("%B")
-        curr_amount = round(months.get(month, 0) + t.amount, 2) # two zeroes instead of one ***
-        months[month] = curr_amount
+        in_flow = months.get(month, {}).get("inFlow", 0)
+        out_flow = months.get(month, {}).get("outFlow", 0)
+        net = months.get(month, {}).get("net", 0)
+        if t.amount > 0: 
+            in_flow += t.amount
+        elif t.amount < 0: 
+            out_flow += t.amount
+        net += t.amount
+
+        months[month] = {
+            "inFlow": round(in_flow, 2), 
+            "outFlow": round(out_flow, 2), 
+            "net": round(net, 2)
+        }
 
     print("Monthly Cashflow:")
     print("-----------------")
+    print("          Inflow: Outflow: Net:")
     for key, val in months.items():
-        print(f"{key}:  ${val}")
+        inFlow = format_amount(val["inFlow"])
+        outFlow = format_amount(val["outFlow"])
+        net = format_amount(val["net"])
+        print(f"{key}:  {inFlow}, {outFlow}, {net}")
 
 
 
 summarize_by_month(transactions)
-
-# Monthly Cashflow:
-# -----------------
-# January 2025: Inflow: $6000.00, Outflow: $3500.00, Net: $2500.00
-# February 2025: Inflow: $4000.00, Outflow: $3300.00, Net: $700.00
