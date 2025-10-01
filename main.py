@@ -5,6 +5,11 @@ transactions = get_transaction_objects()
 # for t in transactions:
 #     print(t)
 
+def format_amount(amount):
+    if amount < 0:
+        return f"-${abs(amount):.2f}"
+    return f"${abs(amount):.2f}"
+
 def get_initial_balance(transactions):
     return transactions[0].balance - transactions[0].amount
 
@@ -21,30 +26,31 @@ def summarize_by_category(transactions):
     print("-----------------")
     for key, val in categories.items(): 
         if val != 0: 
-            print(f"{key}: ${val:.2f}") # fix the dollar sign with negative values **********
+            print(f"{key}: {format_amount(val)}")
     init_balance = get_initial_balance(transactions)
     fin_balance = get_final_balance(transactions)
     print("")
-    print(f"Initial Balance: {init_balance}")
-    print(f"Final Balance: {fin_balance}")
-
-# summarize_by_category(transactions)
+    print(f"Initial Balance: {format_amount(init_balance)}")
+    print(f"Final Balance: {format_amount(fin_balance)}")
 
 
 def summarize_by_month(transactions):
-    months_year = {}
+    months = {}
     for t in transactions:
         month = t.date.strftime("%B")
-        year = t.date.strftime("%Y")
-        key = month + " " + year
-        curr_amount = round(months_year.get(month, 0) + t.amount, 2)
-        months_year[key] = curr_amount
+        curr_amount = round(months.get(month, 0) + t.amount, 2) # two zeroes instead of one ***
+        months[month] = curr_amount
 
     print("Monthly Cashflow:")
     print("-----------------")
-    for key, val in months_year.items():
-        print(f"{key}: ${val}")
+    for key, val in months.items():
+        print(f"{key}:  ${val}")
 
 
 
 summarize_by_month(transactions)
+
+# Monthly Cashflow:
+# -----------------
+# January 2025: Inflow: $6000.00, Outflow: $3500.00, Net: $2500.00
+# February 2025: Inflow: $4000.00, Outflow: $3300.00, Net: $700.00
