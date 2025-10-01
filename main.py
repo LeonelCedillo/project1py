@@ -1,17 +1,19 @@
 from transac_obj import get_transaction_objects
 from transaction import Category
 
+
 transactions = get_transaction_objects()
-# for t in transactions:
-#     print(t)
+
 
 def format_amount(amount):
     if amount < 0:
         return f"-${abs(amount):.2f}"
     return f"${abs(amount):.2f}"
 
+
 def get_initial_balance(transactions):
     return transactions[0].balance - transactions[0].amount
+
 
 def get_final_balance(transactions):
     return transactions[len(transactions) - 1].balance
@@ -64,4 +66,20 @@ def summarize_by_month(transactions):
 
 
 
-summarize_by_month(transactions)
+def get_top_expenses(transactions, n=5):
+    top = []
+    for t in transactions:
+        amt = t.amount
+        if amt >= 0:
+            continue
+        if len(top) < n:
+            top.append(amt)
+        else:
+            max_val = max(top)
+            if amt < max_val:
+                top[top.index(max_val)] = amt
+            
+    print(top)
+
+
+get_top_expenses(transactions, 5)
