@@ -73,13 +73,19 @@ def get_top_expenses(transactions, n=5):
         if amt >= 0:
             continue
         if len(top) < n:
-            top.append(amt)
+            top.append(t)
         else:
-            max_val = max(top)
+            max_txn = max(top, key=lambda txn: txn.amount)
+            max_val = max_txn.amount
             if amt < max_val:
-                top[top.index(max_val)] = amt
-            
-    print(top)
+                top[top.index(max_txn)] = t
+
+    sorted_expenses = sorted(top, key=lambda txn: txn.amount)
+    print(f"Top {n} Expenses:")
+    print("------------------")
+    for t in sorted_expenses:
+        amount = format_amount(t.amount)
+        print(f"{t.date.date()} | {t.category} | {t.subcategory} | {amount}")
 
 
 get_top_expenses(transactions, 5)
