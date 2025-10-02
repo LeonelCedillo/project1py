@@ -88,4 +88,19 @@ def get_top_expenses(transactions, n=5):
         print(f"{t.date.date()} | {t.category} | {t.subcategory} | {amount}")
 
 
-get_top_expenses(transactions, 5)
+def get_balance_trend(transactions):
+    print("Balance Trend:")
+    print("--------------")
+    for t in transactions:
+        balance = format_amount(t.balance)
+        print(f"{t.date.date()} | {balance}")
+
+
+def sort_on_date(transactions, reverse):
+    sorted_txns = list(sorted(transactions, key=lambda txn: txn.date, reverse=reverse))
+    return sorted_txns
+
+
+sorted_asc_transactions = sort_on_date(transactions, reverse=False)
+
+get_balance_trend(sorted_asc_transactions)
