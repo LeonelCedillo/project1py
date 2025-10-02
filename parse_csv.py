@@ -48,7 +48,20 @@ def add_category(txn, rules):
     txnType = txn[1].name
     for keyword, rule in rules[txnType].items():
         if keyword in desc:
-            txn.append(rule["category"])
+            match (rule["category"]):
+                case "PAYMENT":
+                    cat = Category.PAYMENT
+                case "TRANSFER":
+                    cat = Category.TRANSFER
+                case "INVESTMENT":
+                    cat = Category.INVESTMENT
+                case "CASH_WITHDRAWAL":
+                    cat = Category.CASH_WITHDRAWAL
+                case "DEPOSIT":
+                    cat = Category.DEPOSIT
+                case "OTHER":
+                    cat = Category.OTHER
+            txn.append(cat)
             txn.append(rule["subcategory"])
             return txn
     txn.append(Category.OTHER)
