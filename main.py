@@ -29,3 +29,9 @@ categories = list(str(c) for c in categories_dict.keys())
 values = list(categories_dict.values())
 
 plt.bar(categories, values)
+plt.xlabel('Category')
+plt.ylabel('Amount ($)')
+plt.title('Category Summary')
+# Save chart:
+plt.tight_layout()
+plt.savefig("category_summary.png")
