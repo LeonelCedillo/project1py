@@ -48,7 +48,7 @@ def summarize_by_month(transactions):
 
     print("Monthly Cashflow:")
     print("-----------------")
-    print("          Inflow: Outflow: Net:")
+    print("               Inflow: Outflow: Net:")
     for key, val in months.items():
         inFlow = format_amount(val["inFlow"])
         outFlow = format_amount(val["outFlow"])

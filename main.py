@@ -12,13 +12,13 @@ print(f"Initial Balance: {format_amount(init_balance)}")
 print(f"Final Balance: {format_amount(fin_balance)}")
 print("")
 
-# get_balance_trend(transactions)
+get_balance_trend(transactions)
 print("")
-
-# summarize_by_category(transactions)
 print("")
-
-# summarize_by_month(transactions)
+summarize_by_category(transactions)
 print("")
-
+print("")
+summarize_by_month(transactions)
+print("")
+print("")
 get_top_expenses(transactions, 5)
