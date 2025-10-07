@@ -15,6 +15,7 @@ def get_final_balance(transactions):
 
 
 def summarize_by_category(transactions):
+
     categories = {c: 0 for c in Category}
     for t in transactions: 
         if t.category in categories:
@@ -24,6 +25,7 @@ def summarize_by_category(transactions):
     for key, val in categories.items(): 
         if val != 0: 
             print(f"{key.name}: {format_amount(val)}")
+    return categories
     
 
 

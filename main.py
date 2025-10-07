@@ -1,6 +1,6 @@
 from transac_obj import get_transaction_objects
 from filter_func import *
-
+import matplotlib.pyplot as plt
 
 transactions = get_transaction_objects()
 transactions = sort_on_date(transactions, reverse=False)
@@ -12,13 +12,20 @@ print(f"Initial Balance: {format_amount(init_balance)}")
 print(f"Final Balance: {format_amount(fin_balance)}")
 print("")
 
-get_balance_trend(transactions)
+# get_balance_trend(transactions)
 print("")
 print("")
-summarize_by_category(transactions)
+# summarize_by_category(transactions)
 print("")
 print("")
-summarize_by_month(transactions)
+# summarize_by_month(transactions)
 print("")
 print("")
-get_top_expenses(transactions, 5)
+# get_top_expenses(transactions, 5)
+
+
+categories_dict = summarize_by_category(transactions)
+categories = list(str(c) for c in categories_dict.keys())
+values = list(categories_dict.values())
+
+plt.bar(categories, values)
