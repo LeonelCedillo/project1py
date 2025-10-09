@@ -22,9 +22,11 @@ def summarize_by_category(transactions):
             categories[t.category] += t.amount
     print("Category Summary:")
     print("-----------------")
-    for key, val in categories.items(): 
-        if val != 0: 
-            print(f"{key.name}: {format_amount(val)}")
+    for key in list(categories.keys()): 
+        if categories[key] == 0: 
+            categories.pop(key)
+            continue
+        print(f"{key.name}: {format_amount(categories[key])}")
     return categories
     
 
