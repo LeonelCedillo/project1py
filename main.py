@@ -16,13 +16,13 @@ print("")
 # category_summary_chart(categories_dict)
 # print("")
 
+# dates, balances = get_balance_trend(transactions)
+# balance_trend_chart(dates, balances)
+# print("")
 
-# summarize_by_month(transactions)
-print("")
-print("")
 # get_top_expenses(transactions, 5)
 
+monthly_cashflow_dict = summarize_by_month(transactions)
+monthly_cashflow_chart(monthly_cashflow_dict)
 
-dates, balances = get_balance_trend(transactions)
-balance_trend_chart(dates, balances)
 

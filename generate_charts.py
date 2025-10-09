@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 def category_summary_chart(categories_dict):
     categories = list(str(c.name) for c in categories_dict.keys())
@@ -25,3 +26,10 @@ def balance_trend_chart(dates, balances):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.savefig("balance_trend.png")
+
+
+def monthly_cashflow_chart(monthly_cashflow_dict):
+    months = list(monthly_cashflow_dict.keys())
+    inflow = [v["inflow"] for v in monthly_cashflow_dict.values()]
+    outFlow = 
+    net = 

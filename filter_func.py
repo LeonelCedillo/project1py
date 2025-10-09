@@ -57,8 +57,8 @@ def summarize_by_month(transactions):
         outFlow = format_amount(val["outFlow"])
         net = format_amount(val["net"])
         print(f"{key}:  {inFlow}, {outFlow}, {net}")
-
-
+    return months
+    
 
 def get_top_expenses(transactions, n=5):
     top = []
