@@ -14,3 +14,14 @@ def category_summary_chart(categories_dict):
         plt.text(i, val + (50 if val >= 0 else -50), f"${val:.2f}", ha='center', va='bottom' if val >= 0 else 'top')
     plt.tight_layout()
     plt.savefig("category_summary.png")
+
+
+def balance_trend_chart(dates, balances):
+    dates = [d.strftime("%y/%m") for d in dates]
+    plt.plot(dates, balances, marker='o')
+    plt.xlabel("Date (YY/MM)")
+    plt.ylabel("Balance $")
+    plt.title("Balance Trend")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig("balance_trend.png")
