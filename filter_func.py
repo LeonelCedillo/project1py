@@ -15,7 +15,6 @@ def get_final_balance(transactions):
 
 
 def summarize_by_category(transactions):
-
     categories = {c: 0 for c in Category}
     for t in transactions: 
         if t.category in categories:
@@ -86,9 +85,15 @@ def get_top_expenses(transactions, n=5):
 def get_balance_trend(transactions):
     print("Balance Trend:")
     print("--------------")
+    dates = []
+    balances = []
     for t in transactions:
+        dates.append(t.date.date())
+        balances.append(t.balance)
         balance = format_amount(t.balance)
+        print(balance)
         print(f"{t.date.date()} | {balance}")
+    return dates, balances
 
 
 def sort_on_date(transactions, reverse):
