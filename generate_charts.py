@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.cm import get_cmap
+from matplotlib.patches import Patch
+
 
 def category_summary_chart(categories_dict):
     categories = list(str(c.name) for c in categories_dict.keys())
@@ -51,5 +54,32 @@ def monthly_cashflow_chart(monthly_cashflow_dict):
     plt.savefig("monthly_cashflow.png")
 
 
-def top_expenses_chart(top_expenses):
-    
+def top_expenses_chart(expenses_list_dict):
+    dates = [e["date"] for e in expenses_list_dict]
+    cats = [e["category"] for e in expenses_list_dict]
+    subcats = [e["subcategory"] for e in expenses_list_dict]
+    amounts = [abs(e["amount"]) for e in expenses_list_dict]
+    # A color to each unique category
+    unique_categories = list(set(cats))
+    cmap = get_cmap("tab10")
+    color_map = {cat: cmap(i) for i, cat in enumerate(unique_categories)}
+    colors = [color_map[cat] for cat in cats]
+    # Horizontal bar chart
+    plt.figure(figsize=(8,5))
+    labels = [f"{d} ({s})" for d, s in zip(dates, subcats)]
+    bars = plt.barh(labels, amounts, color=colors)
+    plt.xlabel("Amount ($)")
+    plt.title("Top Expenses")
+    plt.gca().invert_yaxis()  # largest on top
+    # Amounts labels on bars
+    for bar in bars:
+        width = bar.get_width()  
+        plt.text(width - 50, bar.get_y() + bar.get_height()/2, f"${abs(width):.2f}",
+             ha="right", va="center", color="white", fontweight="bold")
+    # Legend
+    legend_elements = [Patch(facecolor=color_map[cat], label=cat) for cat in unique_categories]
+    plt.legend(handles=legend_elements, title="Category", bbox_to_anchor=(1,0.5), loc="center left")
+    # Save chart
+    plt.tight_layout()
+    plt.savefig("top_expenses.png")
+
