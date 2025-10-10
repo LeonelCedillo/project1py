@@ -69,25 +69,33 @@ def top_expenses_chart(expenses_list_dict):
     cats = [e["category"] for e in expenses_list_dict]
     subcats = [e["subcategory"] for e in expenses_list_dict]
     amounts = [abs(e["amount"]) for e in expenses_list_dict]
+
     # A color to each unique category
     unique_categories = list(set(cats))
     cmap = get_cmap("tab10")
     color_map = {cat: cmap(i) for i, cat in enumerate(unique_categories)}
     colors = [color_map[cat] for cat in cats]
+    
     # Horizontal bar chart
-    labels = [f"{d} ({s})" for d, s in zip(dates, subcats)]
-    bars = plt.barh(labels, amounts, color=colors)
+    y_pos = range(len(dates))
+    bars = plt.barh(y_pos, amounts, color=colors)
     plt.xlabel("Amount ($)")
     plt.title("Top Expenses")
     plt.gca().invert_yaxis()  # largest on top
+    # Set y-axis labels to dates
+    plt.yticks(y_pos, dates)
+    
     # Amounts labels on bars
-    for bar in bars:
-        width = bar.get_width()  
-        plt.text(width - 50, bar.get_y() + bar.get_height()/2, f"${abs(width):.2f}",
+    for bar, subcat, width in zip(bars, subcats, amounts):
+        plt.text(6, bar.get_y() + bar.get_height()/2, subcat, 
+             ha="left", va="center", color="white")
+        plt.text(width - 50, bar.get_y() + bar.get_height()/2, f"${width:.2f}",
              ha="right", va="center", color="white", fontweight="bold")
+    
     # Legend
     legend_elements = [Patch(facecolor=color_map[cat], label=cat) for cat in unique_categories]
     plt.legend(handles=legend_elements, title="Category", bbox_to_anchor=(1,0.5), loc="center left")
+    
     # Save chart
     plt.tight_layout()
     plt.savefig("top_expenses.png")
