@@ -5,6 +5,8 @@ from matplotlib.patches import Patch
 
 
 def category_summary_chart(categories_dict):
+    plt.figure(figsize=(8,5))  
+    plt.clf()  
     categories = list(str(c.name) for c in categories_dict.keys())
     values = list(categories_dict.values())
     colors = ['red' if v < 0 else 'blue' for v in values]
@@ -18,9 +20,12 @@ def category_summary_chart(categories_dict):
         plt.text(i, val + (50 if val >= 0 else -50), f"${val:.2f}", ha='center', va='bottom' if val >= 0 else 'top')
     plt.tight_layout()
     plt.savefig("category_summary.png")
+    plt.close() 
 
 
 def balance_trend_chart(dates, balances):
+    plt.figure(figsize=(8,5))  
+    plt.clf()  
     dates = [d.strftime("%y/%m") for d in dates]
     plt.plot(dates, balances, marker='o')
     plt.xlabel("Date (YY/MM)")
@@ -29,14 +34,16 @@ def balance_trend_chart(dates, balances):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.savefig("balance_trend.png")
+    plt.close() 
 
 
 def monthly_cashflow_chart(monthly_cashflow_dict):
+    plt.figure(figsize=(8,5))  
+    plt.clf()  
     months = list(m[-2:]+ " " + m[:3] for m in monthly_cashflow_dict.keys())
     inflow = [v["inFlow"] for v in monthly_cashflow_dict.values()]
     outflow = [v["outFlow"] for v in monthly_cashflow_dict.values()]
     net = [v["net"] for v in monthly_cashflow_dict.values()]
-
     x = np.arange(len(months))
     width = 0.25
     # plot groups bars
@@ -52,9 +59,12 @@ def monthly_cashflow_chart(monthly_cashflow_dict):
     # Save chart:
     plt.tight_layout()
     plt.savefig("monthly_cashflow.png")
+    plt.close() 
 
 
 def top_expenses_chart(expenses_list_dict):
+    plt.figure(figsize=(8,5))  
+    plt.clf()  
     dates = [e["date"] for e in expenses_list_dict]
     cats = [e["category"] for e in expenses_list_dict]
     subcats = [e["subcategory"] for e in expenses_list_dict]
@@ -65,7 +75,6 @@ def top_expenses_chart(expenses_list_dict):
     color_map = {cat: cmap(i) for i, cat in enumerate(unique_categories)}
     colors = [color_map[cat] for cat in cats]
     # Horizontal bar chart
-    plt.figure(figsize=(8,5))
     labels = [f"{d} ({s})" for d, s in zip(dates, subcats)]
     bars = plt.barh(labels, amounts, color=colors)
     plt.xlabel("Amount ($)")
@@ -82,4 +91,5 @@ def top_expenses_chart(expenses_list_dict):
     # Save chart
     plt.tight_layout()
     plt.savefig("top_expenses.png")
+    plt.close() 
 
