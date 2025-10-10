@@ -20,9 +20,10 @@ print("")
 # balance_trend_chart(dates, balances)
 # print("")
 
-# get_top_expenses(transactions, 5)
+# monthly_cashflow_dict = summarize_by_month(transactions)
+# monthly_cashflow_chart(monthly_cashflow_dict)
+# print("")
 
-monthly_cashflow_dict = summarize_by_month(transactions)
-monthly_cashflow_chart(monthly_cashflow_dict)
-
+# top_expenses = 
+get_top_expenses(transactions, 5)
 
