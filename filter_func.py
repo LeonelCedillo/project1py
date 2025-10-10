@@ -58,7 +58,7 @@ def summarize_by_month(transactions):
         net = format_amount(val["net"])
         print(f"{key}:  {inFlow}, {outFlow}, {net}")
     return months
-    
+
 
 def get_top_expenses(transactions, n=5):
     top = []
@@ -75,11 +75,18 @@ def get_top_expenses(transactions, n=5):
                 top[top.index(max_txn)] = t
 
     sorted_expenses = sorted(top, key=lambda txn: txn.amount)
+    expenses = []
     print(f"Top {len(sorted_expenses)} Expenses:")
     print("------------------")
     for t in sorted_expenses:
-        amount = format_amount(t.amount)
-        print(f"{t.date.date()} | {t.category.name} | {t.subcategory} | {amount}")
+        date = t.date.date()
+        cat = t.category.name
+        subcat = t.subcategory
+        amt = t.amount
+        expenses.append({"date": date, "category": cat, "subcategory": subcat, "amount": amt})
+        amount = format_amount(amt)
+        print(f"{date} | {cat} | {subcat} | {amount}")
+    return expenses
 
 
 def get_balance_trend(transactions):

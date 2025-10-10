@@ -24,6 +24,6 @@ print("")
 # monthly_cashflow_chart(monthly_cashflow_dict)
 # print("")
 
-# top_expenses = 
-get_top_expenses(transactions, 5)
+top_expenses = get_top_expenses(transactions, 5)
+top_expenses_chart(top_expenses)
 

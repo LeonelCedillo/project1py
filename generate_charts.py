@@ -49,3 +49,7 @@ def monthly_cashflow_chart(monthly_cashflow_dict):
     # Save chart:
     plt.tight_layout()
     plt.savefig("monthly_cashflow.png")
+
+
+def top_expenses_chart(top_expenses):
+    
