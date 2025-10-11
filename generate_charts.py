@@ -87,8 +87,8 @@ def top_expenses_chart(expenses_list_dict):
     
     # Amounts labels on bars
     for bar, subcat, width in zip(bars, subcats, amounts):
-        plt.text(6, bar.get_y() + bar.get_height()/2, subcat, 
-             ha="left", va="center", color="white")
+        plt.text(6, bar.get_y() + bar.get_height(), subcat, 
+             ha="left", va="bottom", color="white")
         plt.text(width - 50, bar.get_y() + bar.get_height()/2, f"${width:.2f}",
              ha="right", va="center", color="white", fontweight="bold")
     
