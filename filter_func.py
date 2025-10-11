@@ -15,10 +15,31 @@ def get_final_balance(transactions):
 
 
 def summarize_by_category(transactions):
+    payment = []
+    transfer = []
+    invesment = []
+    cash_withdrawal = []
+    deposit = []
+    other = []
     categories = {c: 0 for c in Category}
     for t in transactions: 
         if t.category in categories:
             categories[t.category] += t.amount
+
+        if t.category == Category.PAYMENT:
+            payment.append(t)
+        elif t.category == Category.TRANSFER:
+            transfer.append(t)
+        elif t.category == Category.INVESTMENT:
+            invesment.append(t)
+        elif t.category == Category.CASH_WITHDRAWAL:
+            cash_withdrawal.append(t)
+        elif t.category == Category.DEPOSIT:
+            deposit.append(t)
+        elif t.category == Category.OTHER:
+            other.append(t)
+    for item in other: 
+        print(item)
     print("Category Summary:")
     print("-----------------")
     for key in list(categories.keys()): 
