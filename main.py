@@ -12,9 +12,9 @@ transactions = sort_on_date(transactions, reverse=False)
 # print(f"Final Balance: {format_amount(fin_balance)}")
 # print("")
 
-categories_dict = summarize_by_category(transactions)
-category_summary_chart(categories_dict)
-print("")
+# categories_dict = summarize_by_category(transactions)
+# category_summary_chart(categories_dict)
+# print("")
 
 # dates, balances = get_balance_trend(transactions)
 # balance_trend_chart(dates, balances)
@@ -26,4 +26,6 @@ print("")
 
 # top_expenses = get_top_expenses(transactions, 5)
 # top_expenses_chart(top_expenses)
+
+summarize_by_subcategory(transactions)
 

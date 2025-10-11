@@ -15,31 +15,10 @@ def get_final_balance(transactions):
 
 
 def summarize_by_category(transactions):
-    payment = []
-    transfer = []
-    invesment = []
-    cash_withdrawal = []
-    deposit = []
-    other = []
     categories = {c: 0 for c in Category}
     for t in transactions: 
         if t.category in categories:
             categories[t.category] += t.amount
-
-        if t.category == Category.PAYMENT:
-            payment.append(t)
-        elif t.category == Category.TRANSFER:
-            transfer.append(t)
-        elif t.category == Category.INVESTMENT:
-            invesment.append(t)
-        elif t.category == Category.CASH_WITHDRAWAL:
-            cash_withdrawal.append(t)
-        elif t.category == Category.DEPOSIT:
-            deposit.append(t)
-        elif t.category == Category.OTHER:
-            other.append(t)
-    for item in other: 
-        print(item)
     print("Category Summary:")
     print("-----------------")
     for key in list(categories.keys()): 
@@ -129,3 +108,22 @@ def sort_on_date(transactions, reverse):
     return sorted_txns
 
 
+#######################################################################################
+def summarize_by_subcategory(transactions):
+    categories = {c:{} for c in Category}
+    for t in transactions: 
+        if t.category in categories:
+            if t.subcategory not in categories[t.category]:
+                categories[t.category][t.subcategory] = []
+            categories[t.category][t.subcategory].append(t.amount)
+    for key in list(categories.keys()): 
+        if categories[key] == {}: 
+            categories.pop(key)
+
+    print("Subcategories:")
+    for cat, items in categories.items():
+        print(f"Category: {cat}")
+        for item in items:
+            print(item)
+        print()
+    
