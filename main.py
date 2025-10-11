@@ -27,5 +27,7 @@ transactions = sort_on_date(transactions, reverse=False)
 # top_expenses = get_top_expenses(transactions, 5)
 # top_expenses_chart(top_expenses)
 
-summarize_by_subcategory(transactions)
+subcategories = summarize_by_subcategory(transactions)
+subcategories_chart(subcategories)
+
 

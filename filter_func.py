@@ -1,5 +1,6 @@
 from transaction import Category
 
+
 def format_amount(amount):
     if amount < 0:
         return f"-${abs(amount):.2f}"
@@ -114,16 +115,17 @@ def summarize_by_subcategory(transactions):
     for t in transactions: 
         if t.category in categories:
             if t.subcategory not in categories[t.category]:
-                categories[t.category][t.subcategory] = []
-            categories[t.category][t.subcategory].append(t.amount)
+                categories[t.category][t.subcategory] = 0
+            categories[t.category][t.subcategory] += t.amount
     for key in list(categories.keys()): 
         if categories[key] == {}: 
             categories.pop(key)
-
-    print("Subcategories:")
-    for cat, items in categories.items():
+    print("Subcategories: --------------")
+    for cat, subcats in categories.items():
+        print("")
         print(f"Category: {cat}")
-        for item in items:
-            print(item)
-        print()
-    
+        for subcat, amount in subcats.items():
+            total = round(amount, 2)
+            subcats[subcat] = total
+            print(f"{subcat}: {total}")
+    return categories

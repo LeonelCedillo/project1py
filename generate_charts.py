@@ -101,3 +101,7 @@ def top_expenses_chart(expenses_list_dict):
     plt.savefig("top_expenses.png")
     plt.close() 
 
+
+def subcategories_chart(subcategories):
+    print("printing subcats from subcategories_chart()")
+    print(subcategories)
