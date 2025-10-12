@@ -102,6 +102,18 @@ def top_expenses_chart(expenses_list_dict):
     plt.close() 
 
 
-def subcategories_chart(subcategories):
-    print("printing subcats from subcategories_chart()")
-    print(subcategories)
+def subcategories_chart(cat_subcat):
+    plt.clf()
+    print(cat_subcat)
+    for category, subdata in cat_subcat.items():
+        labels = list(subdata.keys())
+        values = [abs(v) for v in subdata.values()]
+        plt.figure()
+        plt.pie(values, labels=labels, autopct="%1.1f%%")
+        plt.title(category)
+
+        # Save chart
+        plt.tight_layout()
+        plt.savefig(f"{category.name}_pie.png")
+        plt.close() 
+
