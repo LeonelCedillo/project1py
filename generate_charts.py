@@ -106,14 +106,15 @@ def subcategories_chart(cat_subcat):
     plt.clf()
     print(cat_subcat)
     for category, subdata in cat_subcat.items():
+        title = category.name
         labels = list(subdata.keys())
         values = [abs(v) for v in subdata.values()]
         plt.figure()
         plt.pie(values, labels=labels, autopct="%1.1f%%")
-        plt.title(category)
+        plt.title(title)
 
         # Save chart
         plt.tight_layout()
-        plt.savefig(f"{category.name}_pie.png")
+        plt.savefig(f"{title}_pie.png")
         plt.close() 
 
