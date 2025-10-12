@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.cm import get_cmap
 from matplotlib.patches import Patch
+from filter_func import format_amount
 
 
 def category_summary_chart(categories_dict):
@@ -108,10 +109,11 @@ def subcategories_chart(cat_subcat):
     for category, subdata in cat_subcat.items():
         title = category.name
         labels = list(subdata.keys())
-        values = [abs(v) for v in subdata.values()]
+        abs_values = [abs(v) for v in subdata.values()]
         plt.figure()
-        plt.pie(values, labels=labels, autopct="%1.1f%%")
-        plt.title(title)
+        plt.pie(abs_values, labels=labels, autopct="%1.1f%%")
+        total = format_amount(sum(subdata.values()))
+        plt.title(f"{title}: {total}")
 
         # Save chart
         plt.tight_layout()
