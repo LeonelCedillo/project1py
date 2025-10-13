@@ -1,5 +1,6 @@
-import matplotlib.pyplot as plt
+import math
 import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib.cm import get_cmap
 from matplotlib.patches import Patch
 from filter_func import format_amount
@@ -105,18 +106,24 @@ def top_expenses_chart(expenses_list_dict):
 
 def subcategories_chart(cat_subcat):
     plt.clf()
-    print(cat_subcat)
-    for category, subdata in cat_subcat.items():
-        title = category.name
+    n = len(cat_subcat)
+    cols = 2
+    rows = math.ceil(n / cols)
+
+    fig, axes = plt.subplots(rows, cols, figsize=(10, 5 * rows))
+    axes = axes.flatten()  # flatten for easy indexing
+
+    for i, (category, subdata) in enumerate(cat_subcat.items()):
         labels = list(subdata.keys())
         abs_values = [abs(v) for v in subdata.values()]
-        plt.figure()
-        plt.pie(abs_values, labels=labels, autopct="%1.1f%%")
         total = format_amount(sum(subdata.values()))
-        plt.title(f"{title}: {total}")
+        axes[i].pie(abs_values, labels=labels, autopct="%1.1f%%")
+        axes[i].set_title(f"{category.name}: {total}")
 
-        # Save chart
-        plt.tight_layout()
-        plt.savefig(f"{title}_pie.png")
-        plt.close() 
+    # hide any unused subplots
+    for j in range(i + 1, len(axes)):
+        fig.delaxes(axes[j])
 
+    plt.tight_layout()
+    plt.savefig("categories_pie.png", dpi=300) # high resolution
+    plt.close()
