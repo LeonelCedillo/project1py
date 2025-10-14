@@ -1,17 +1,17 @@
-from parse_csv import filter_line, normalize_transaction, add_category
-from transaction import Transaction
+from src.parse_csv import filter_line, normalize_transaction, add_category
+from src.transaction import Transaction
 import json
 
 # raw row:
 # "Date","ReferenceNo.","Type","Description","Debit","Credit","CheckNumber","Balance"
 
-def get_transaction_objects():
-    with open("rules.json", "r") as f:
+def get_transaction_objects(file_csv, rules_json):
+    with open(rules_json, "r") as f:
         rules = json.load(f)
     transaction_objs = []
     prev_balance = None
 
-    with open("export.csv") as file:
+    with open(file_csv) as file:
         next(file) # skip header
         for line in file:
             txn = filter_line(line)  # To: ["Date","Type","Description","Amount","Balance"]

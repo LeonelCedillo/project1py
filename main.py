@@ -2,10 +2,9 @@ from src.transac_obj import get_transaction_objects
 from src.filter_func import *
 from src.generate_charts import *
 
-transactions = get_transaction_objects()
-transactions = sort_on_date(transactions, reverse=False)
 
-PATH_TO_SAVE = "/data/generated_charts/"
+transactions = get_transaction_objects("data/export.csv", "data/rules.json")
+transactions = sort_on_date(transactions, reverse=False)
 
 init_balance = get_initial_balance(transactions)
 fin_balance = get_final_balance(transactions)

@@ -1,4 +1,4 @@
-from transaction import Type, Category, Transaction
+from src.transaction import Type, Category, Transaction
 from datetime import datetime
 
 # raw row:

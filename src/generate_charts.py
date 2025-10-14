@@ -1,10 +1,11 @@
+import os
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.cm import get_cmap
 from matplotlib.patches import Patch
-from filter_func import format_amount
-from main import PATH_TO_SAVE
+from src.filter_func import format_amount
+from config import PATH_TO_SAVE
 
 
 def category_summary_chart(categories_dict):
@@ -22,7 +23,7 @@ def category_summary_chart(categories_dict):
     for i, val in enumerate(values):
         plt.text(i, val + (50 if val >= 0 else -50), f"${val:.2f}", ha='center', va='bottom' if val >= 0 else 'top')
     plt.tight_layout()
-    plt.savefig("category_summary.png")
+    plt.savefig(os.path.join(PATH_TO_SAVE, "category_summary.png"))
     plt.close() 
 
 
@@ -36,7 +37,7 @@ def balance_trend_chart(dates, balances):
     plt.title("Balance Trend")
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("balance_trend.png")
+    plt.savefig(os.path.join(PATH_TO_SAVE, "balance_trend.png"))
     plt.close() 
 
 
@@ -61,7 +62,7 @@ def monthly_cashflow_chart(monthly_cashflow_dict):
     plt.xticks(x, months, rotation=45)
     # Save chart:
     plt.tight_layout()
-    plt.savefig("monthly_cashflow.png")
+    plt.savefig(os.path.join(PATH_TO_SAVE, "monthly_cashflow.png"))
     plt.close() 
 
 
@@ -101,7 +102,7 @@ def top_expenses_chart(expenses_list_dict):
     
     # Save chart
     plt.tight_layout()
-    plt.savefig("top_expenses.png")
+    plt.savefig(os.path.join(PATH_TO_SAVE, "top_expenses.png"))
     plt.close() 
 
 
@@ -126,5 +127,5 @@ def subcategories_chart(cat_subcat):
         fig.delaxes(axes[j])
 
     plt.tight_layout()
-    plt.savefig("categories_pie.png", dpi=300) # high resolution
+    plt.savefig(os.path.join(PATH_TO_SAVE, "categories_pie.png"), dpi=300) # high resolution
     plt.close()

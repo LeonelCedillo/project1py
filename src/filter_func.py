@@ -1,4 +1,4 @@
-from transaction import Category
+from src.transaction import Category
 
 
 def format_amount(amount):
