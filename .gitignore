@@ -5,6 +5,11 @@
 # JSON:
 *.json
 
+# Generated:
+*.png
+data/
+generated_charts/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
