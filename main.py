@@ -5,6 +5,7 @@ from src.generate_charts import *
 transactions = get_transaction_objects()
 transactions = sort_on_date(transactions, reverse=False)
 
+PATH_TO_SAVE = "/data/generated_charts/"
 
 init_balance = get_initial_balance(transactions)
 fin_balance = get_final_balance(transactions)

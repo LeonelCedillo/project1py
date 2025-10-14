@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.cm import get_cmap
 from matplotlib.patches import Patch
 from filter_func import format_amount
+from main import PATH_TO_SAVE
 
 
 def category_summary_chart(categories_dict):
