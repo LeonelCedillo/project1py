@@ -66,7 +66,7 @@ def monthly_cashflow_chart(monthly_cashflow_dict):
     plt.close() 
 
 
-def top_expenses_chart(expenses_list_dict):
+def top_transactions_chart(expenses_list_dict, type):
     plt.figure(figsize=(8,5))  
     plt.clf()  
     dates = [e["date"] for e in expenses_list_dict]
@@ -102,7 +102,7 @@ def top_expenses_chart(expenses_list_dict):
     
     # Save chart
     plt.tight_layout()
-    plt.savefig(os.path.join(PATH_TO_SAVE, "top_expenses.png"))
+    plt.savefig(os.path.join(PATH_TO_SAVE, f"top_{type}.png"))
     plt.close() 
 
 
