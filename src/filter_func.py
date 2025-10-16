@@ -61,7 +61,7 @@ def summarize_by_month(transactions):
     return months
 
 
-def get_top_expenses(transactions, n=5):
+def get_top_expenses(transactions, n=5, expenses=True):
     top = []
     for t in transactions:
         amt = t.amount
@@ -80,13 +80,14 @@ def get_top_expenses(transactions, n=5):
     print(f"Top {len(sorted_expenses)} Expenses:")
     print("------------------")
     for t in sorted_expenses:
-        date = t.date.date()
-        cat = t.category.name
-        subcat = t.subcategory
-        amt = t.amount
-        expenses.append({"date": date, "category": cat, "subcategory": subcat, "amount": amt})
-        amount = format_amount(amt)
-        print(f"{date} | {cat} | {subcat} | {amount}")
+        expense = {
+            "date": t.date.date(), 
+            "category": t.category.name, 
+            "subcategory": t.subcategory, 
+            "amount": t.amount
+        }
+        expenses.append(expense)
+        print(f"{t.date.date()} | {t.category.name} | {t.subcategory} | {format_amount(t.amount)}")
     return expenses
 
 
@@ -109,7 +110,6 @@ def sort_on_date(transactions, reverse):
     return sorted_txns
 
 
-#######################################################################################
 def summarize_by_subcategory(transactions):
     categories = {c:{} for c in Category}
     for t in transactions: 
