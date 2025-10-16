@@ -61,23 +61,31 @@ def summarize_by_month(transactions):
     return months
 
 
-def get_top_expenses(transactions, n=5, expenses=True):
+def get_top_expenses(transactions, n=5, expense=True):
     top = []
     for t in transactions:
         amt = t.amount
-        if amt >= 0:
+        if amt == 0:
             continue
         if len(top) < n:
             top.append(t)
         else:
-            max_txn = max(top, key=lambda txn: txn.amount)
-            max_val = max_txn.amount
-            if amt < max_val:
-                top[top.index(max_txn)] = t
-
-    sorted_expenses = sorted(top, key=lambda txn: txn.amount)
+            if expense: # top expenses
+                max_txn = max(top, key=lambda txn: txn.amount)
+                if amt < max_txn.amount:
+                    top[top.index(max_txn)] = t
+            else: # top deposits
+                min_txn = min(top, key=lambda txn: txn.amount)
+                if amt > min_txn.amount:
+                    top[top.index(min_txn)] = t
+    trans = "Expenses"
+    sorting_order = False
+    if not expense:
+        trans = "Deposits"
+        sorting_order = True
+    sorted_expenses = sorted(top, key=lambda txn: txn.amount, reverse=sorting_order)
     expenses = []
-    print(f"Top {len(sorted_expenses)} Expenses:")
+    print(f"Top {len(sorted_expenses)} {trans}:")
     print("------------------")
     for t in sorted_expenses:
         expense = {
